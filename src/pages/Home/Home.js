@@ -6,6 +6,9 @@ import Nav from '../../components/Nav';
 import List from '../../components/List';
 import Modal from '../../components/Modal';
 import Button from '../../components/Button';
+import withLoading from '../../hoc/withLoading';
+
+const EnchancedList = withLoading(List);
 
 class Home extends React.Component {
 
@@ -14,6 +17,8 @@ class Home extends React.Component {
 
     this.state = {
       todoList: [],
+      isLoading: true,
+      error: false,
       isPosting: false,
       showModal: false
     }
@@ -32,10 +37,13 @@ class Home extends React.Component {
       Api.get('/todos')
         .then(list => {
           this.setState({
-            todoList: list.data
+            todoList: list.data,
+            isLoading: false
           })
         })
-        .catch(err => console.log(err));
+        .catch(() => {
+          this.setState({ error: true })
+        });
     }
   }
 
@@ -129,7 +137,16 @@ class Home extends React.Component {
         <div>
           <Button type="button" clickHandler={this.toggleModal}>Add Todo</Button>
         </div>
-        <List deleteHandler={this.handleDelete} updateHandler={this.handleUpdate} editHandler={this.toggleModal} list={list} />
+        <div>
+          <Button type="button" clickHandler={this.props.logoutHandler}>Logout</Button>
+        </div>
+        <EnchancedList
+          error={this.state.error}
+          isLoading={this.state.isLoading}
+          deleteHandler={this.handleDelete}
+          updateHandler={this.handleUpdate}
+          editHandler={this.toggleModal}
+          list={list} />
       </div>
     );
   }
