@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Api from '../../api/ApiUtils';
 import Button from '../Button';
 
-function Todo({ detail, deleteHandler, updateHandler }) {
+function Todo({ detail, deleteHandler, updateHandler, editHandler }) {
 
   const { id, title, description, created, updated, status } = detail;
   const [isDisable, setIsDisable] = useState(false);
@@ -36,15 +36,20 @@ function Todo({ detail, deleteHandler, updateHandler }) {
       .catch(err => console.log(err));
   }
 
+  const editTodo = () => {
+    editHandler(detail);
+  }
+
   return (
     <div>
       <h3>{title}</h3>
       <p>{description}</p>
       <p>{created}</p>
-      <p>{updated}</p>
+      <p>{new Date(created * 1000).toLocaleString()}</p>
+      <p>{new Date(updated * 1000).toLocaleString()}</p>
       <div>
         <Button type="button" clickHandler={toggleStatus} disabled={isDisable}>{status === 'done' ? 'Undone' : 'Done'}</Button>
-        <Button type="button" disabled={isDisable}>Edit</Button>
+        <Button type="button" clickHandler={editTodo} disabled={isDisable}>Edit</Button>
         <Button type="button" clickHandler={deleteTodo} disabled={isDisable}>Delete</Button>
       </div>
     </div>

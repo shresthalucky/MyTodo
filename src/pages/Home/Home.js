@@ -4,7 +4,8 @@ import { Redirect } from 'react-router-dom';
 import Api from '../../api/ApiUtils';
 import Nav from '../../components/Nav';
 import List from '../../components/List';
-import Form from '../../components/Form';
+import Modal from '../../components/Modal';
+import Button from '../../components/Button';
 
 class Home extends React.Component {
 
@@ -13,7 +14,8 @@ class Home extends React.Component {
 
     this.state = {
       todoList: [],
-      isPosting: false
+      isPosting: false,
+      showModal: false
     }
 
     this.nav = [
@@ -21,6 +23,8 @@ class Home extends React.Component {
       { name: 'Active', to: '/active' },
       { name: 'Done', to: '/done' },
     ]
+
+    this.modalData = {};
   }
 
   componentDidMount() {
@@ -35,15 +39,19 @@ class Home extends React.Component {
     }
   }
 
-  handleForm = (title, description) => {
+  handleForm = (data, id) => {
     this.toggleFormLoading();
-
-    const data = {
-      title, description, status: 'active'
+    if (id) {
+      this.editTodo(data, id);
+    } else {
+      this.addNewTodo(data);
     }
+  }
 
+  addNewTodo = (data) => {
     Api.post('/todos', data)
       .then(todo => {
+        this.toggleModal();
         this.setState({
           todoList: [todo.data, ...this.state.todoList]
         });
@@ -52,9 +60,32 @@ class Home extends React.Component {
       .finally(() => this.toggleFormLoading);
   }
 
+  editTodo = (data, id) => {
+    Api.put(`/todos/${id}`, data)
+      .then(todo => {
+        this.handleUpdate(id, todo.data);
+        this.toggleModal();
+      })
+      .catch(err => console.log(err))
+      .finally(() => this.toggleFormLoading);
+  }
+
   toggleFormLoading = () => {
     this.setState({
       isPosting: !this.state.isPosting
+    });
+  }
+
+  toggleModal = (data) => {
+
+    if (data) {
+      this.modalData = data;
+    } else {
+      this.modalData = {};
+    }
+
+    this.setState({
+      showModal: !this.state.showModal
     });
   }
 
@@ -67,7 +98,7 @@ class Home extends React.Component {
     });
   }
 
-  updateHandler = (id, data) => {
+  handleUpdate = (id, data) => {
     this.setState({
       todoList: this.state.todoList.map(todo => {
         if (todo.id === id) return data;
@@ -90,10 +121,15 @@ class Home extends React.Component {
 
     return (
       <div>
+        {this.state.showModal &&
+          <Modal submitHandler={this.handleForm} loading={this.state.isPosting} initialData={this.modalData} />
+        }
         <div>Home</div>
         <Nav links={this.nav} />
-        <Form submitHandler={this.handleForm} loading={this.state.isPosting} />
-        <List deleteHandler={this.handleDelete} updateHandler={this.updateHandler} list={list} />
+        <div>
+          <Button type="button" clickHandler={this.toggleModal}>Add Todo</Button>
+        </div>
+        <List deleteHandler={this.handleDelete} updateHandler={this.handleUpdate} editHandler={this.toggleModal} list={list} />
       </div>
     );
   }
