@@ -1,0 +1,18 @@
+.input {
+  width: 100%;
+  padding: 12px 30px;
+  border-radius: 6px;
+  
+  &:focus,
+  &:active {
+    outline: none;
+    border: 1px solid var(--secondary);
+    background-color: var(--secondary);
+  }
+
+  @include m(primary) {
+    background-color: var(--foreground);
+    border: 1px solid var(--foreground);
+    color: var(--text);
+  }
+}

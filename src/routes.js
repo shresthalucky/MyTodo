@@ -6,7 +6,7 @@ import Home from './pages/Home';
 
 function Routes(props) {
   return (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       <Switch>
         <Route
           exact

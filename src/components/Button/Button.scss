@@ -1,0 +1,78 @@
+.btn {
+  padding: 12px 30px;
+  border-radius: 6px;
+  font-family: $font-family-primary;
+  font-size: $default-font-size;
+  text-decoration: none;
+  cursor: pointer;
+  margin: 0 6px;
+  font-weight: bold;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  svg {
+    vertical-align: middle;
+    margin-right: 8px;
+
+    &.spinner {
+      -webkit-animation: spin 2s linear infinite;
+      -moz-animation: spin 2s linear infinite;
+      animation: spin 2s linear infinite;
+    }
+  }
+
+  @include m(primary) {
+    background-color: var(--foreground);
+    border: 1px solid var(--foreground);
+
+    &:enabled {
+      &:hover {
+        background-color: var(--secondary);
+        color: var(--text);
+      }
+
+      &:active {
+        background-color: var(--background);
+        color: var(--text);
+      }
+    }
+  }
+
+  @include m(purple) {
+    background-color: var(--purple);
+    border: 1px solid var(--purple);
+    color: var(--background);
+
+    &:hover {
+      background-color: var(--purple-light);
+    }
+
+    &:active {
+      background-color: var(--purple);
+    }
+  }
+
+  @include m(blue) {
+    background-color: var(--blue);
+    border: 1px solid var(--blue);
+    color: var(--background);
+
+    &:hover {
+      background-color: var(--blue-light);
+    }
+
+    &:active {
+      background-color: var(--blue);
+    }
+  }
+}

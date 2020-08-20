@@ -1,7 +1,10 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
+import { RiLoginCircleLine, RiAddCircleLine } from 'react-icons/ri';
 
 import Api from '../../api/ApiUtils';
+import Input from '../../components/Input';
+import Button from '../../components/Button';
 
 class Login extends React.Component {
 
@@ -10,7 +13,9 @@ class Login extends React.Component {
 
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      isDisable: false,
+      errorMessage: '‏‏‎ ‎'
     }
   }
 
@@ -20,23 +25,49 @@ class Login extends React.Component {
     });
   }
 
+  toggleDisable = () => {
+    this.setState({
+      isDisable: !this.state.isDisable
+    });
+  }
+
+  setErrorMessage = (message) => {
+    this.setState({
+      errorMessage: message
+    });
+  }
+
   handleLogin = (e) => {
+
+    this.toggleDisable();
+
     Api.post('/users/login', {
       username: this.state.username,
       password: this.state.password
     })
       .then(res => {
         this.props.tokenHandler(res.data);
+      })
+      .catch(err => {
+        this.setErrorMessage(err.response.data.message)
+        this.toggleDisable();
       });
   }
 
   handleRegister = (e) => {
+
+    this.toggleDisable();
+
     Api.post('/users/register', {
       username: this.state.username,
       password: this.state.password
     })
       .then(res => {
         this.props.tokenHandler(res.data);
+      })
+      .catch(err => {
+        this.setErrorMessage(err.response.data.message)
+        this.toggleDisable();
       });
   }
 
@@ -48,11 +79,35 @@ class Login extends React.Component {
     }
 
     return (
-      <div>
-        <input type="text" onChange={this.handleInput} value={this.state.username} name="username" />
-        <input type="password" onChange={this.handleInput} value={this.state.password} name="password" />
-        <button onClick={this.handleLogin}>Login</button>
-        <button onClick={this.handleRegister}>Register</button>
+      <div className="outer-wrapper">
+        <div className="outer-wrapper__cell">
+          <div className="login-wrapper">
+            <div className="login-wrapper__input">
+              <Input type="text" changeHandler={this.handleInput} value={this.state.username} name="username" placeholder="username" />
+            </div>
+            <div className="login-wrapper__input">
+              <Input type="password" changeHandler={this.handleInput} value={this.state.password} name="password" placeholder="password" />
+            </div>
+            <div className="errorMessage">{this.state.errorMessage}</div>
+            <div className="login-buttons">
+              <Button
+                type="button"
+                className="purple"
+                clickHandler={this.handleLogin}
+                icon={<RiLoginCircleLine />}
+                disabled={this.state.isDisable}>
+                Login</Button>
+
+              <Button
+                type="button"
+                className="blue"
+                clickHandler={this.handleRegister}
+                icon={<RiAddCircleLine />}
+                disabled={this.state.isDisable}>
+                Register</Button>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

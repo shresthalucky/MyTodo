@@ -44,13 +44,13 @@ class App extends React.Component {
       id: '',
       username: ''
     });
-    
+
     localStorage.removeItem('token');
   }
 
   render() {
     return (
-      <div>
+      <div className="container">
         <Routes token={this.state.token} tokenHandler={this.setToken} logoutHandler={this.removeToken} />
       </div>
     );

@@ -1,8 +1,16 @@
 import React from 'react';
 
-function Button({type, loading, disabled, clickHandler, children}) {
-  return(
-    <button type={type} onClick={clickHandler} disabled={disabled}>{children}</button>
+function Button({ type, disabled, clickHandler, className, icon, children }) {
+
+  return (
+    <button
+      className={`btn btn--${className ? className : 'primary'}`}
+      type={type}
+      onClick={clickHandler}
+      disabled={disabled}>
+      {icon}
+      {children}
+    </button>
   );
 }
 

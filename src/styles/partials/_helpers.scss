@@ -1,0 +1,71 @@
+.outer-wrapper {
+  display: table;
+  height: 100vh;
+  width: 100%;
+
+  @include e(cell) {
+    display: table-cell;
+    vertical-align: middle;
+  }
+}
+
+.container {
+  padding: 0 15px;
+  max-width: 100%;
+  margin: 0 auto;
+
+  @include mq(md) {
+    max-width: $md-device;
+  }
+
+  @include mq(lg) {
+    max-width: $lg-device;
+  }
+
+  @include mq(xl) {
+    max-width: $xl-device;
+    padding: 0 200px;
+  }
+}
+
+.clearfix {
+  &:after {
+    display: table;
+    content: "";
+    clear: both;
+  }
+}
+
+.float {
+  @include m(left) {
+    float: left;
+  }
+
+  @include m(right) {
+    float: right;
+  }
+}
+
+.card {
+  background-color: var(--foreground);
+  border: 1px solid var(--foreground);
+  border-radius: 6px;
+  width: 100%;
+}
+
+@-moz-keyframes spin {
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
