@@ -75,4 +75,18 @@
       background-color: var(--blue);
     }
   }
+
+  @include m(green) {
+    background-color: var(--green);
+    border: 1px solid var(--green);
+    color: var(--background);
+
+    &:hover {
+      background-color: var(--green-light);
+    }
+
+    &:active {
+      background-color: var(--green);
+    }
+  }
 }

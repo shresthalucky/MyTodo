@@ -39,6 +39,8 @@ class Login extends React.Component {
 
   handleLogin = (e) => {
 
+    e.preventDefault();
+    this.setErrorMessage('Logging in...');
     this.toggleDisable();
 
     Api.post('/users/login', {
@@ -49,13 +51,14 @@ class Login extends React.Component {
         this.props.tokenHandler(res.data);
       })
       .catch(err => {
-        this.setErrorMessage(err.response.data.message)
+        this.setErrorMessage(err.response.data.message);
         this.toggleDisable();
       });
   }
 
   handleRegister = (e) => {
 
+    this.setErrorMessage('Registering...');
     this.toggleDisable();
 
     Api.post('/users/register', {
@@ -66,7 +69,7 @@ class Login extends React.Component {
         this.props.tokenHandler(res.data);
       })
       .catch(err => {
-        this.setErrorMessage(err.response.data.message)
+        this.setErrorMessage(err.response.data.message);
         this.toggleDisable();
       });
   }
@@ -82,30 +85,32 @@ class Login extends React.Component {
       <div className="outer-wrapper">
         <div className="outer-wrapper__cell">
           <div className="login-wrapper">
-            <div className="login-wrapper__input">
-              <Input type="text" changeHandler={this.handleInput} value={this.state.username} name="username" placeholder="username" />
-            </div>
-            <div className="login-wrapper__input">
-              <Input type="password" changeHandler={this.handleInput} value={this.state.password} name="password" placeholder="password" />
-            </div>
-            <div className="errorMessage">{this.state.errorMessage}</div>
-            <div className="login-buttons">
-              <Button
-                type="button"
-                className="purple"
-                clickHandler={this.handleLogin}
-                icon={<RiLoginCircleLine />}
-                disabled={this.state.isDisable}>
-                Login</Button>
+            <form onSubmit={this.handleLogin}>
+              <div className="login-wrapper__input">
+                <Input type="text" changeHandler={this.handleInput} value={this.state.username} name="username" placeholder="username" />
+              </div>
+              <div className="login-wrapper__input">
+                <Input type="password" changeHandler={this.handleInput} value={this.state.password} name="password" placeholder="password" />
+              </div>
+              <div className="errorMessage">{this.state.errorMessage}</div>
+              <div className="login-buttons">
+                <Button
+                  type="submit"
+                  className="purple"
+                  clickHandler={this.handleLogin}
+                  icon={<RiLoginCircleLine />}
+                  disabled={this.state.isDisable}>
+                  Login</Button>
 
-              <Button
-                type="button"
-                className="blue"
-                clickHandler={this.handleRegister}
-                icon={<RiAddCircleLine />}
-                disabled={this.state.isDisable}>
-                Register</Button>
-            </div>
+                <Button
+                  type="button"
+                  className="blue"
+                  clickHandler={this.handleRegister}
+                  icon={<RiAddCircleLine />}
+                  disabled={this.state.isDisable}>
+                  Register</Button>
+              </div>
+            </form>
           </div>
         </div>
       </div>

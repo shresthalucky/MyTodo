@@ -1,7 +1,6 @@
 import axois from 'axios';
 
-const baseUrl = 'https://todo-express-rest-api.herokuapp.com/api/';
-// const baseUrl = 'http://127.0.0.1:1234/api/';
+const baseUrl = `${process.env.REACT_APP_API_DOMAIN}/api`;
 
 const instance = axois.create({
   baseURL: baseUrl,

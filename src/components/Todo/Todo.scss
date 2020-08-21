@@ -1,0 +1,22 @@
+.todo {
+  @extend .card;
+  padding: 25px 30px;
+  margin: 30px 0;
+  cursor: pointer;
+
+  @include e(detail) {
+  }
+
+  @include e(action) {
+    padding-top: 20px;
+  }
+}
+
+.todo-date {
+  padding-top: 20px;
+  font-size: $sm-font-size;
+
+  @include e(updated) {
+    margin-left: 20px;
+  }
+}

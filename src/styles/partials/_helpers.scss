@@ -53,6 +53,12 @@
   width: 100%;
 }
 
+.errorMessage {
+  color: $red;
+  font-weight: 700;
+}
+
+
 @-moz-keyframes spin {
   100% {
     -moz-transform: rotate(360deg);

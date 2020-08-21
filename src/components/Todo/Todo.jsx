@@ -7,9 +7,14 @@ function Todo({ detail, deleteHandler, updateHandler, editHandler }) {
 
   const { id, title, description, created, updated, status } = detail;
   const [isDisable, setIsDisable] = useState(false);
+  const [showAction, setShowAction] = useState(false);
 
-  const deleteTodo = () => {
+  const toggleShowAction = () => {
+    setShowAction(!showAction);
+  }
 
+  const deleteTodo = (e) => {
+    e.stopPropagation();
     setIsDisable(true);
 
     Api.delete(`/todos/${id}`)
@@ -19,8 +24,8 @@ function Todo({ detail, deleteHandler, updateHandler, editHandler }) {
       .catch(err => console.log(err));
   }
 
-  const toggleStatus = () => {
-
+  const toggleStatus = (e) => {
+    e.stopPropagation();
     setIsDisable(true);
 
     const data = {
@@ -33,25 +38,36 @@ function Todo({ detail, deleteHandler, updateHandler, editHandler }) {
       .then(todo => {
         updateHandler(id, todo.data);
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err))
+      .finally(() => {
+        setIsDisable(false);
+      });
   }
 
-  const editTodo = () => {
+  const editTodo = (e) => {
+    e.stopPropagation();
     editHandler(detail);
   }
 
   return (
-    <div>
-      <h3>{title}</h3>
-      <p>{description}</p>
-      <p>{created}</p>
-      <p>{new Date(created * 1000).toLocaleString()}</p>
-      <p>{new Date(updated * 1000).toLocaleString()}</p>
-      <div>
-        <Button type="button" clickHandler={toggleStatus} disabled={isDisable}>{status === 'done' ? 'Undone' : 'Done'}</Button>
-        <Button type="button" clickHandler={editTodo} disabled={isDisable}>Edit</Button>
-        <Button type="button" clickHandler={deleteTodo} disabled={isDisable}>Delete</Button>
+    <div className="todo" onClick={toggleShowAction}>
+      <div className="todo__detail">
+        <h2>{title}</h2>
+        <p>{description}</p>
+        <div className="todo-date">
+          <span className="todo-date__created">Created on {new Date(created * 1000).toDateString()}</span>
+          {created !== updated &&
+            <span className="todo-date__updated">Updated on {new Date(updated * 1000).toDateString()}</span>
+          }
+        </div>
       </div>
+      {showAction &&
+        <div className="todo__action">
+          <Button type="button" className="green" clickHandler={toggleStatus} disabled={isDisable}>{status === 'done' ? 'Undone' : 'Done'}</Button>
+          <Button type="button" className="purple" clickHandler={editTodo} disabled={isDisable}>Edit</Button>
+          <Button type="button" className="blue" clickHandler={deleteTodo} disabled={isDisable}>Delete</Button>
+        </div>
+      }
     </div>
   );
 }

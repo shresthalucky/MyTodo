@@ -14,6 +14,8 @@ body {
   --blue-light: #{theme-get(light, blue-light)};
   --purple: #{theme-get(light, purple)};
   --purple-light: #{theme-get(light, purple-light)};
+  --green: #{theme-get(light, green)};
+  --green-light: #{theme-get(light, green-light)};
 }
 
 body.dark {
