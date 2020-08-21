@@ -34,7 +34,8 @@
   @include m(primary) {
     background-color: var(--foreground);
     border: 1px solid var(--foreground);
-
+    color: var(--text);
+    
     &:enabled {
       &:hover {
         background-color: var(--secondary);

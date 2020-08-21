@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Input({ type, name, value, changeHandler, placeholder }) {
+function Input({ type, name, value, changeHandler, placeholder, required }) {
   return (
     <input
       className="input input--primary"
@@ -8,7 +8,9 @@ function Input({ type, name, value, changeHandler, placeholder }) {
       name={name}
       value={value}
       onChange={changeHandler}
-      placeholder={placeholder} />
+      placeholder={placeholder}
+      required={required}
+    />
   );
 }
 

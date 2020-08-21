@@ -1,0 +1,27 @@
+.modal-wrapper {
+  @extend .outer-wrapper;
+  position: absolute;
+  background-color: var(--background);
+
+  @include e(cell) {
+    @extend .outer-wrapper__cell;
+  }
+}
+
+.modal-form {
+  @include e(input) {
+    margin: 20px 0;
+  }
+
+  @include e(textarea) {
+    @extend .input;
+    @extend .input--primary;
+
+    width: 100%;
+    resize: vertical;
+  }
+
+  @include e(action) {
+    text-align: right;
+  }
+}

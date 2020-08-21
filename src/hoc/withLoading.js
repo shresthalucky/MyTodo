@@ -6,7 +6,7 @@ function withLoading(Component) {
 
     if (error) {
       return (
-        <span>Error Occured!</span>
+        <div className="loading">Error Occured!</div>
       );
     }
 
@@ -14,7 +14,7 @@ function withLoading(Component) {
       return (<Component {...props} />)
     }
 
-    return (<div>Loading...</div>);
+    return (<div className="loading">Loading...</div>);
 
   }
 

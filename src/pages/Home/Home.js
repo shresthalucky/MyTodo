@@ -128,9 +128,9 @@ class Home extends React.Component {
     }
 
     return (
-      <div>
+      <div className="home">
         {this.state.showModal &&
-          <Modal submitHandler={this.handleForm} loading={this.state.isPosting} initialData={this.modalData} />
+          <Modal submitHandler={this.handleForm} cancelHandler={this.toggleModal} loading={this.state.isPosting} initialData={this.modalData} />
         }
         <header className="header">
           <div className="header__left">

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 
+import Input from '../Input';
 import Button from '../Button';
 
-function Form({ submitHandler, initialData, loading }) {
+function Form({ submitHandler, cancelHandler, initialData, loading }) {
 
   const [title, setTitle] = useState(initialData.title || '');
   const [description, setDescription] = useState(initialData.description || '');
@@ -10,7 +11,7 @@ function Form({ submitHandler, initialData, loading }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     const status = initialData.status || 'active';
-    submitHandler({title, description, status}, initialData.id);
+    submitHandler({ title, description, status }, initialData.id);
   }
 
   const handleChange = (e) => {
@@ -24,19 +25,24 @@ function Form({ submitHandler, initialData, loading }) {
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <input name="title" placeholder="Title" onChange={handleChange} value={title} />
+    <div className="modal-wrapper">
+      <div className="modal-wrapper__cell">
+        <div className="modal-form">
+          <form onSubmit={handleSubmit}>
+            <div className="modal-form__input">
+              <Input name="title" placeholder="Title" changeHandler={handleChange} value={title} required={true} />
+            </div>
+            <div className="modal-form__input">
+              <textarea className="modal-form__textarea" name="description" placeholder="Description" onChange={handleChange} value={description} />
+            </div>
+            <div className="modal-form__action">
+              <Button type="reset" clickHandler={cancelHandler}>Cancel</Button>
+              <Button type="reset" clickHandler={handleClear}>Clear</Button>
+              <Button className="purple" type="submit">{initialData.title ? 'Update' : 'Add'}</Button>
+            </div>
+          </form>
         </div>
-        <div>
-          <textarea name="description" placeholder="Description" onChange={handleChange} value={description} />
-        </div>
-        <div>
-          <Button type="reset" clickHandler={handleClear}>Clear</Button>
-          <Button type="submit">{initialData.title ? 'Update' : 'Add'}</Button>
-        </div>
-      </form>
+      </div>
     </div>
   );
 }

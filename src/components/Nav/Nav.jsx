@@ -6,8 +6,8 @@ function Nav({ links }) {
     <ul className="nav">
       {links.map(path => {
         return (
-          <li>
-            <NavLink to={path.to} key={path.name} className="nav__link" exact>{path.name}</NavLink>
+          <li key={path.name}>
+            <NavLink to={path.to} className="nav__link" exact>{path.name}</NavLink>
           </li>
         )
       })}

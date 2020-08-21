@@ -2,7 +2,9 @@
   width: 100%;
   padding: 12px 30px;
   border-radius: 6px;
-  
+  font-family: $font-family-primary;
+  font-size: $default-font-size;
+
   &:focus,
   &:active {
     outline: none;

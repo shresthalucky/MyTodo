@@ -87,10 +87,22 @@ class Login extends React.Component {
           <div className="login-wrapper">
             <form onSubmit={this.handleLogin}>
               <div className="login-wrapper__input">
-                <Input type="text" changeHandler={this.handleInput} value={this.state.username} name="username" placeholder="username" />
+                <Input
+                  type="text"
+                  changeHandler={this.handleInput}
+                  value={this.state.username}
+                  name="username"
+                  placeholder="username"
+                  required={true} />
               </div>
               <div className="login-wrapper__input">
-                <Input type="password" changeHandler={this.handleInput} value={this.state.password} name="password" placeholder="password" />
+                <Input
+                  type="password"
+                  changeHandler={this.handleInput}
+                  value={this.state.password}
+                  name="password"
+                  placeholder="password"
+                  required={true} />
               </div>
               <div className="errorMessage">{this.state.errorMessage}</div>
               <div className="login-buttons">

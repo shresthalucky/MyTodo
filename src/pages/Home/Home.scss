@@ -1,5 +1,8 @@
-.header {
+.home {
+  position: relative;
+}
 
+.header {
   padding-top: 30px;
 
   @extend .clearfix;
@@ -11,5 +14,4 @@
   @include e(right) {
     @extend .float--right;
   }
-
 }

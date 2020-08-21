@@ -4,7 +4,7 @@
   box-sizing: border-box;
 }
 
-body {
+body.light {
   --background: #{theme-get(light, background)};
   --foreground: #{theme-get(light, foreground)};
   --secondary: #{theme-get(light, secondary)};
@@ -18,7 +18,7 @@ body {
   --green-light: #{theme-get(light, green-light)};
 }
 
-body.dark {
+body {
   --background: #{theme-get(dark, background)};
   --foreground: #{theme-get(dark, foreground)};
   --secondary: #{theme-get(dark, secondary)};
@@ -28,6 +28,8 @@ body.dark {
   --blue-light: #{theme-get(dark, blue-light)};
   --purple: #{theme-get(dark, purple)};
   --purple-light: #{theme-get(dark, purple-light)};
+  --green: #{theme-get(light, green)};
+  --green-light: #{theme-get(light, green-light)};
 }
 
 body {
