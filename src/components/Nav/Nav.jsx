@@ -3,7 +3,15 @@ import { NavLink } from 'react-router-dom';
 
 function Nav({ links }) {
   return (
-    links.map(path => <NavLink to={path.to} key={path.name}>{path.name}</NavLink>)
+    <ul className="nav">
+      {links.map(path => {
+        return (
+          <li>
+            <NavLink to={path.to} key={path.name} className="nav__link" exact>{path.name}</NavLink>
+          </li>
+        )
+      })}
+    </ul>
   );
 }
 

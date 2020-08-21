@@ -1,0 +1,15 @@
+.header {
+
+  padding-top: 30px;
+
+  @extend .clearfix;
+
+  @include e(left) {
+    @extend .float--left;
+  }
+
+  @include e(right) {
+    @extend .float--right;
+  }
+
+}

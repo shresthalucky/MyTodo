@@ -1,0 +1,17 @@
+.nav {
+  li {
+    display: inline-block;
+    margin-top: 12px;
+    margin-left: 30px;
+  }
+
+  @include e(link) {
+    font-weight: 700;
+    color: var(--text);
+    text-decoration: none;
+
+    &.active {
+      color: var(--link);
+    }
+  }
+}

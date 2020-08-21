@@ -132,14 +132,16 @@ class Home extends React.Component {
         {this.state.showModal &&
           <Modal submitHandler={this.handleForm} loading={this.state.isPosting} initialData={this.modalData} />
         }
-        <div>Home</div>
-        <Nav links={this.nav} />
-        <div>
-          <Button type="button" clickHandler={this.toggleModal}>Add Todo</Button>
-        </div>
-        <div>
-          <Button type="button" clickHandler={this.props.logoutHandler}>Logout</Button>
-        </div>
+        <header className="header">
+          <div className="header__left">
+            <Nav links={this.nav} />
+          </div>
+          <div className="header__right">
+            <Button type="button" className="purple" clickHandler={this.toggleModal}>Add Todo</Button>
+            <Button type="button" className="blue" clickHandler={this.props.logoutHandler}>Logout</Button>
+          </div>
+        </header>
+
         <EnchancedList
           error={this.state.error}
           isLoading={this.state.isLoading}
